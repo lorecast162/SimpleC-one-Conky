@@ -1,0 +1,82 @@
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+--[[
+-----------------------------------
+-- SimpleC-One Conky---------------
+-- A siple custom conky theme------
+-- by luizfnunes-------------------
+-- http://github.com/luizfnunes ---
+-- modified and consolidated ------
+-- by lorecast162 -----------------
+-- https://github.com/lorecast162--
+-- --------------------------------
+-- Customize colors:---------------
+-- color1 - text color ------------
+-- color2 - icons color -----------
+-- color3 - graphs color ----------
+-----------------------------------
+]]
+
+conky.config = {
+	--Text Color
+		color1 = '#6ea7ed',
+	--Icons Color
+		color2 = '#BFBFBF',
+	--Graph Color
+		color3 = '#BFBFBF',
+
+	update_interval = 1,
+	double_buffer = true,
+	no_buffers = true,
+	imlib_cache_size = 10,
+	own_window = true,
+	own_window_type = normal,
+	own_window_hints = 'undecorated,sticky,skip_taskbar,skip_pager,below',
+	own_window_colour = '#040404',
+	own_window_argb_visual = true,
+	own_window_argb_value = 120,
+	own_window_transparent = false,
+	minimum_height = 330,
+	minimum_width =  190,
+	background = true,
+	border_inner_margin = 3,
+	border_outer_margin = 7,
+	alignment = 'top_right',
+	gap_x = 0,
+	gap_y = 18,
+	use_xft = true,
+	font = 'Roboto Condensed:size=12',
+	text_buffer_size = 256,
+	draw_shades = true,
+	override_utf8_locale = true,
+	draw_graph_borders = true,
+	default_color = '#FFFFFF',
+}
+
+--TEXT
+conky.text = [[
+${goto 0}$color1${font Roboto Condensed:size=50}${exec date +%H:%M}
+$color1$font
+${goto 0}${voffset -50}${font Roboto Condensed:size=50}${exec date +%d/%m/%Y}$font
+${voffset 10}$color1
+--system info
+$color2${font LineAwesomeMod :size=14}M $font$color1 ${sysname} ${kernel} ${machine}
+$color2${font LineAwesomeMod :size=14}G $font$color1 Uptime ${uptime}
+$color2${font LineAwesomeMod :size=14}7 $font$color1 Threads: ${running_threads}
+$color2${font LineAwesomeMod :size=14}y $font$color1 Battery level: ${battery_percent BATC}%
+$color2${font LineAwesomeMod :size=14}y $font$color1 AC Adapter state: ${acpiacadapter ADP1}
+
+--net info
+$color2${font LineAwesomeMod :size=14}= $font$color1 Local IP: ${addr wlxf4f26d0c8ab1}
+$color2${font LineAwesomeMod :size=14}= $font$color1 Public IP: ${execi 60 curl  ipinfo.io/ip}
+$color2${font LineAwesomeMod :size=14}= $font$color1 WiFi SSID: ${wireless_essid wlxf4f26d0c8ab1}
+
+--system gauges
+$color2${font LineAwesomeMod :size=14}Q$color1 $font CPU ${cpu}%
+$color3${cpugraph 30,270 -l}$color
+$color2${font LineAwesomeMod :size=14}-$color1 $font Memory ${mem} - ${memperc}%
+$color3${memgraph 30,270 -l}$color1
+$color2${font LineAwesomeMod :size=14}z$color1 $font root ${fs_free /} (${fs_free_perc /}%)
+$color3${fs_bar 20,270 /}$color
+$color2${font LineAwesomeMod :size=14}z$color1 $font /mnt/Data ${fs_free /mnt/Data} (${fs_free_perc /mnt/Data}%)
+$color3${fs_bar 20,270 /mnt/Data}$color
+]];
